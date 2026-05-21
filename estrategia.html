@@ -648,6 +648,172 @@
   .divider-slide .slide-num { color: var(--color-text-3); }
   .divider-slide .slide-footer { background: #000; }
 
+  /* ══════════════════════════════════════════════
+     RESPONSIVE — TABLET (≤860px) + MOBILE (≤480px)
+     Transforms fixed-mm slides into scrollable cards
+  ═══════════════════════════════════════════════ */
+
+  @media screen and (max-width: 860px) {
+    body { background: #E5E7EB; }
+
+    /* Slide becomes a flex column of natural height */
+    .slide {
+      width: 100%;
+      height: auto !important;
+      min-height: auto !important;
+      margin: 0 0 16px;
+      border-radius: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+    }
+    .slide:last-of-type { margin-bottom: 0; }
+
+    /* Kill blur glows — heavy & pointless on small screens */
+    .glow { display: none; }
+
+    /* Header: lift out of absolute, flows at top */
+    .slide-header {
+      position: relative !important;
+      top: auto; left: auto; right: auto;
+      padding: 16px 20px 0 !important;
+    }
+
+    /* Content / Cover / CTA: auto height, sensible padding */
+    .content {
+      height: auto !important;
+      padding: 18px 20px 16px !important;
+    }
+    .cover {
+      height: auto !important;
+      padding: 22px 20px 16px !important;
+    }
+    .cta-wrap {
+      height: auto !important;
+      padding: 28px 20px !important;
+    }
+
+    /* Cover tagline: lift out of absolute */
+    .cover-tagline {
+      position: relative !important;
+      bottom: auto; left: auto;
+      padding: 0 20px 12px;
+    }
+
+    /* Footer: lift out of absolute, flows at bottom */
+    .slide-footer {
+      position: relative !important;
+      bottom: auto; left: auto; right: auto;
+      padding: 0 20px;
+      margin-top: 12px;
+    }
+
+    /* Divider slides stay flex-centered */
+    .divider-slide { justify-content: flex-start; }
+    .divider-content { padding: 28px 20px; }
+    .divider-title { font-size: 38pt; }
+
+    /* Cover typography */
+    .cover-title    { font-size: 38pt; letter-spacing: -1.5px; }
+    .cover-subtitle { font-size: 12pt; max-width: 100%; }
+    .cover-contact  { flex-wrap: wrap; gap: 12px; }
+
+    /* Content typography */
+    h2.content-title { font-size: 22pt !important; }
+    .content-lead    { font-size: 10.5pt; }
+
+    /* CTA typography */
+    .cta-title { font-size: 34pt !important; max-width: 100%; }
+    .cta-sub   { font-size: 11pt; max-width: 100%; }
+    .cta-contact { flex-wrap: wrap; gap: 16px; }
+
+    /* Grids: 3→2 cols on tablet */
+    .cards-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+
+    /* Split layouts: always 1 column */
+    .split,
+    .split.wide-left,
+    .split.wide-right { grid-template-columns: 1fr; gap: 16px; }
+
+    /* KPI grid: 3→2 cols */
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    /* Rule rows: stack */
+    .rule-row { flex-direction: column; }
+
+    /* Calendar tables: horizontal scroll */
+    table.cal-table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      min-width: 520px;
+    }
+
+    /* Nav button */
+    #fztt-nav { bottom: 16px; right: 16px; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .slide { margin: 0 0 12px; }
+
+    /* Tighter header */
+    .slide-header { padding: 14px 16px 0 !important; }
+    .logo-text    { font-size: 11pt; }
+    .slide-num    { font-size: 6.5pt; }
+
+    /* Tighter content */
+    .content  { padding: 14px 16px 12px !important; }
+    .cover    { padding: 18px 16px 12px !important; }
+    .cta-wrap { padding: 22px 16px !important; }
+    .cover-tagline { padding: 0 16px 10px; }
+
+    /* Tighter footer */
+    .slide-footer { padding: 0 16px; }
+    .footer-tag   { font-size: 9pt; }
+
+    /* Cover typography */
+    .cover-title    { font-size: 26pt; letter-spacing: -1px; }
+    .cover-eyebrow  { font-size: 7.5pt; padding: 5px 12px; }
+    .cover-subtitle { font-size: 10.5pt; }
+    .cover-contact  { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .cover-contact .sep { display: none; }
+    .cover-contact .cta { align-self: flex-start; }
+
+    /* Content typography */
+    h2.content-title { font-size: 18pt !important; }
+    .content-lead    { font-size: 10pt; }
+    .section-label   { font-size: 8pt; }
+
+    /* Grids: all → 1 column */
+    .cards-grid.cols-2,
+    .cards-grid.cols-3,
+    .cards-grid.cols-4 { grid-template-columns: 1fr; }
+
+    /* KPI: 1 column */
+    .kpi-grid   { grid-template-columns: 1fr; }
+    .kpi-value  { font-size: 24pt !important; }
+
+    /* CTA typography */
+    .cta-title   { font-size: 22pt !important; letter-spacing: -0.5px; }
+    .cta-sub     { font-size: 10pt; }
+    .cta-contact { flex-direction: column; gap: 14px; }
+    .btn-teal    { font-size: 10.5pt; padding: 12px 22px; }
+
+    /* Divider */
+    .divider-content { padding: 22px 16px; }
+    .divider-title   { font-size: 26pt; letter-spacing: -0.5px; }
+    .divider-sub     { font-size: 11pt; }
+
+    /* Nav button */
+    #fztt-nav { bottom: 12px; right: 12px; }
+    #fztt-nav a {
+      font-size: 11px !important;
+      padding: 8px 12px !important;
+    }
+  }
+
 </style>
 </head>
 <body>
