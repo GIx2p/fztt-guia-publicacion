@@ -106,6 +106,10 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--b
 /* ── Slide download button (Mejora 3) ── */
 .slide-dl{position:absolute;bottom:10px;right:10px;background:#0D1B2A;color:#fff;font-size:12px;font-weight:600;padding:6px 10px;border-radius:4px;cursor:pointer;text-decoration:none;z-index:10;transition:background .15s;display:inline-block;}
 .slide-dl:hover{background:var(--teal-d);}
+/* ── Single image download button ── */
+.img-dl-wrap{position:relative;display:block;}
+.img-dl{position:absolute;bottom:10px;right:10px;background:#0D1B2A;color:#fff;font-size:12px;font-weight:600;padding:6px 10px;border-radius:4px;cursor:pointer;text-decoration:none;z-index:10;transition:background .15s;display:inline-block;}
+.img-dl:hover{background:var(--teal-d);}
 /* ── David amplify block (Mejora 2) ── */
 .amplify-block{padding:20px 28px;background:#F0FDFB;border-left:4px solid #00C6A7;}
 .amplify-title{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--teal-d);margin-bottom:10px;}
@@ -957,6 +961,24 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.post-section:not(.david-friday):not(.placeholder-card)').forEach(function(section) {
     var temp = document.createElement('div'); temp.innerHTML = AH;
     section.appendChild(temp.firstElementChild);
+  });
+
+  /* ── MEJORA 4: Download button on single static images ── */
+  document.querySelectorAll('.image-single img').forEach(function(img) {
+    var rawSrc = img.getAttribute('src');
+    var fname = rawSrc.startsWith('data:')
+      ? (img.getAttribute('data-filename') || (img.getAttribute('alt') || 'imagen').replace(/[^a-z0-9_\-]/gi,'_') + '.jpg')
+      : (img.getAttribute('data-filename') || rawSrc.split('/').pop());
+    var wrap = document.createElement('div'); wrap.className = 'img-dl-wrap';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    var dl = document.createElement('a');
+    dl.className = 'img-dl';
+    dl.textContent = '⬇ Descargar';
+    dl.href = rawSrc;
+    dl.download = fname;
+    dl.addEventListener('click', function(e) { e.stopPropagation(); });
+    wrap.appendChild(dl);
   });
 
 });
