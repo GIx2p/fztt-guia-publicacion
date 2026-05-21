@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estrategia LinkedIn 2026 — FromZeroToTen</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg:         #FFFFFF;
+    --color-bg-alt:     #F8FAFC;
+    --color-navy:       #0D1B2A;
+    --color-navy-deep:  #080F1A;
+    --color-navy-card:  #1A2E4A;
+    --color-border:     #E2E8F0;
+    --color-text-1:     #0D1B2A;
+    --color-text-2:     #64748B;
+    --color-text-3:     #94A3B8;
+    --color-teal:       #00C6A7;
+    --color-teal-dark:  #00876F;
+    --color-teal-light: #F0FDFB;
+    --logo-from:  #1B3461;
+    --logo-zero:  #1A6FA5;
+    --logo-to:    #1A9DB5;
+    --logo-ten:   #1CC4A0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: var(--color-text-2);
+    background: #E5E7EB;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 338mm;
+    height: 190mm;
+    background: #fff;
+    margin: 24px auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    page-break-after: always;
+  }
+  .slide:last-child { page-break-after: auto; }
+
+  @page { size: 338mm 190mm; margin: 0; }
+  @media print {
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    html, body { background: #fff; }
+    .slide { margin: 0; box-shadow: none; }
+    .grid-bg {
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+      top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+      background-image:
+        linear-gradient(rgba(13,27,42,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,27,42,0.06) 1px, transparent 1px) !important;
+      background-size: 56px 56px !important;
+      opacity: 1 !important;
+      z-index: 1 !important;
+    }
+    .slide.dark .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px) !important;
+    }
+    .grid-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, #FFFFFF 85%);
+      pointer-events: none;
+    }
+    .slide.dark .grid-bg::before {
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, #080F1A 85%);
+    }
+    .mesh-bg { z-index: 2 !important; }
+    .content, .cover, .cta-wrap {
+      position: relative !important;
+      z-index: 10 !important;
+    }
+    .glow { display: none !important; }
+    .mesh-bg {
+      background:
+        radial-gradient(ellipse 50% 55% at 88% 15%, rgba(0,198,167,0.45), transparent 70%),
+        radial-gradient(ellipse 45% 50% at 8% 88%, rgba(13,27,42,0.14), transparent 70%) !important;
+    }
+    .mesh-bg.alt {
+      background:
+        radial-gradient(ellipse 45% 55% at 10% 20%, rgba(0,198,167,0.42), transparent 70%),
+        radial-gradient(ellipse 45% 50% at 90% 85%, rgba(13,27,42,0.14), transparent 70%) !important;
+    }
+    .slide.dark .mesh-bg {
+      background:
+        radial-gradient(ellipse 45% 55% at 12% 20%, rgba(0,198,167,0.50), transparent 70%),
+        radial-gradient(ellipse 45% 55% at 88% 80%, rgba(0,198,167,0.38), transparent 70%) !important;
+    }
+  }
+
+  /* DECORATIVOS */
+  .mesh-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 50% 55% at 88% 15%, rgba(0,198,167,0.22), transparent 70%),
+      radial-gradient(ellipse 45% 50% at 8% 88%, rgba(13,27,42,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .mesh-bg.alt {
+    background:
+      radial-gradient(ellipse 45% 55% at 10% 20%, rgba(0,198,167,0.20), transparent 70%),
+      radial-gradient(ellipse 45% 50% at 90% 85%, rgba(13,27,42,0.08), transparent 70%);
+  }
+  .grid-bg {
+    position: absolute;
+    top: -40px; left: -40px; right: -40px; bottom: -40px;
+    background-image:
+      linear-gradient(rgba(13,27,42,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,27,42,0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 30%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 30%, transparent 85%);
+    pointer-events: none;
+  }
+  .glow {
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: rgba(0,198,167,0.28);
+    filter: blur(100px);
+    pointer-events: none;
+  }
+  .glow.tl { top: -180px; left: -160px; }
+  .glow.br { bottom: -180px; right: -160px; }
+  .glow.tr { top: -180px; right: -160px; }
+  .glow.bl { bottom: -180px; left: -160px; }
+
+  /* HEADER & FOOTER */
+  .slide-header {
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 12mm 18mm 0;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 5;
+  }
+  .logo-text { font-size: 13pt; font-weight: 800; letter-spacing: -0.5px; }
+  .logo-text .from { color: var(--logo-from); }
+  .logo-text .zero { color: var(--logo-zero); }
+  .logo-text .to   { color: var(--logo-to); }
+  .logo-text .ten  { color: var(--logo-ten); }
+  .slide-num {
+    font-size: 8pt; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--color-text-3);
+  }
+  .slide-footer {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 9mm;
+    background: var(--color-navy);
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: 0 18mm;
+    z-index: 5;
+  }
+  .slide-footer::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 45%;
+    background: linear-gradient(90deg, var(--color-teal) 0%, transparent 100%);
+    opacity: 0.2;
+  }
+  .footer-tag {
+    font-size: 10pt; font-weight: 700;
+    color: #fff; position: relative; z-index: 2;
+  }
+  .footer-tag .accent { color: var(--color-teal); }
+
+  /* PORTADA */
+  .cover {
+    position: relative;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 30mm 30mm;
+    text-align: center;
+  }
+  .cover-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,198,167,0.07);
+    border: 1px solid rgba(0,198,167,0.25);
+    color: var(--color-teal-dark);
+    font-size: 9pt; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 7px 16px; border-radius: 20px;
+    margin-bottom: 28px; position: relative; z-index: 2;
+  }
+  .dot { width: 7px; height: 7px; background: var(--color-teal); border-radius: 50%; }
+  .cover-title {
+    font-size: 58pt; font-weight: 900;
+    letter-spacing: -2.5px; line-height: 1;
+    margin-bottom: 22px; position: relative; z-index: 2;
+    color: var(--color-text-1);
+  }
+  .cover-title .line { display: block; }
+  .cover-title .accent { color: var(--logo-ten); }
+  .cover-subtitle {
+    font-size: 14pt; font-weight: 500;
+    color: var(--color-text-2); max-width: 220mm;
+    line-height: 1.5; position: relative; z-index: 2;
+    margin-bottom: 36px;
+  }
+  .cover-contact {
+    position: relative; z-index: 2;
+    display: flex; gap: 24px; align-items: center;
+    padding-top: 22px;
+    border-top: 1px solid var(--color-border);
+  }
+  .cover-contact a {
+    font-size: 11pt; font-weight: 700; color: var(--color-text-1);
+    text-decoration: none;
+  }
+  .cover-contact .sep {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--color-text-3);
+  }
+  .cover-contact .cta {
+    background: var(--color-teal); color: var(--color-navy-deep);
+    padding: 10px 20px; border-radius: 8px;
+    font-size: 10pt;
+  }
+  .cover-tagline {
+    position: absolute; bottom: 14mm; left: 18mm;
+    font-size: 9pt; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--color-text-3);
+    z-index: 2;
+  }
+
+  /* CONTENIDO */
+  .content {
+    position: relative;
+    padding: 26mm 18mm 14mm;
+    height: 100%;
+    display: flex; flex-direction: column;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 9pt; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--color-teal-dark);
+    padding: 4px 0;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--color-teal);
+    align-self: flex-start;
+  }
+  h2.content-title {
+    font-size: 32pt; font-weight: 900;
+    letter-spacing: -1.5px; line-height: 1.05;
+    color: var(--color-text-1);
+    margin-bottom: 10px;
+  }
+  .content-lead {
+    font-size: 11pt; font-weight: 400;
+    color: var(--color-text-2);
+    line-height: 1.6; max-width: 240mm;
+    margin-bottom: 18px;
+  }
+
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    gap: 14px;
+    flex: 1;
+  }
+  .cards-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .card-num {
+    font-size: 10pt; font-weight: 900;
+    color: var(--color-teal);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .card h3 {
+    font-size: 12pt; font-weight: 800;
+    color: var(--color-text-1);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .card p {
+    font-size: 9.5pt; color: var(--color-text-2);
+    line-height: 1.5;
+  }
+  .card-tag {
+    display: inline-block;
+    background: var(--color-teal-light);
+    border: 1px solid rgba(0,198,167,0.22);
+    color: var(--color-teal-dark);
+    font-size: 8pt; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+  .card.dark {
+    background: var(--color-navy-card);
+    border-color: var(--color-navy-card);
+  }
+  .card.dark h3 { color: #fff; }
+  .card.dark p  { color: var(--color-text-3); }
+  .card.dark .card-num { color: var(--color-teal); }
+  .card.teal-accent { border-left: 3px solid var(--color-teal); }
+
+  /* SPLIT */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    flex: 1;
+  }
+  .split.wide-left { grid-template-columns: 1.2fr 1fr; }
+  .split.wide-right { grid-template-columns: 1fr 1.3fr; }
+
+  /* BULLETS */
+  .bullets { list-style: none; padding: 0; }
+  .bullets li {
+    font-size: 10pt; color: var(--color-text-2);
+    line-height: 1.5; padding-left: 20px; position: relative;
+    margin-bottom: 8px;
+  }
+  .bullets li::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 8px; height: 8px; border-radius: 2px;
+    background: var(--color-teal);
+  }
+  .bullets.sm li { font-size: 9.5pt; margin-bottom: 6px; }
+
+  /* QUOTE */
+  .quote-block {
+    background: var(--color-navy-card);
+    border-radius: 14px;
+    padding: 22px 24px;
+    color: #fff;
+    position: relative;
+  }
+  .quote-block .q-mark {
+    font-size: 44pt; font-weight: 900;
+    color: var(--color-teal);
+    line-height: 0.6;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .quote-block .q-text {
+    font-size: 15pt; font-weight: 800;
+    line-height: 1.3;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .quote-block .q-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .quote-block .q-tag {
+    background: rgba(0,198,167,0.12);
+    border: 1px solid rgba(0,198,167,0.3);
+    color: var(--color-teal);
+    font-size: 8pt; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* TIMELINE STEPS */
+  .t-step {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .t-step-row {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .t-num {
+    display: inline-block;
+    background: var(--color-navy);
+    color: #fff;
+    font-size: 8.5pt; font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .t-title {
+    font-size: 11pt; font-weight: 800;
+    color: var(--color-text-1);
+    flex: 1;
+    line-height: 1.2;
+  }
+  .t-result {
+    display: inline-block;
+    background: var(--color-teal-light);
+    border: 1px solid rgba(0,198,167,0.22);
+    color: var(--color-teal-dark);
+    font-size: 7.5pt; font-weight: 700;
+    padding: 3px 8px; border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .t-desc {
+    font-size: 9pt; color: var(--color-text-2);
+    line-height: 1.45; margin-top: 5px; padding-left: 42px;
+  }
+
+  /* CANAL BADGE */
+  .canal-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 8.5pt; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .canal-badge.empresa {
+    background: rgba(13,27,42,0.06);
+    color: var(--color-navy);
+    border: 1px solid rgba(13,27,42,0.15);
+  }
+  .canal-badge.david {
+    background: rgba(0,198,167,0.08);
+    color: var(--color-teal-dark);
+    border: 1px solid rgba(0,198,167,0.25);
+  }
+
+  /* TABLA CALENDARIO */
+  .cal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    flex: 1;
+  }
+  .cal-table th {
+    background: var(--color-navy);
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 10px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+  .cal-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-2);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .cal-table tr:last-child td { border-bottom: none; }
+  .cal-table tr:nth-child(even) td { background: var(--color-bg-alt); }
+  .cal-table .tipo {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 20px;
+    font-size: 7.5pt; font-weight: 700;
+  }
+  .tipo-co { background: rgba(0,198,167,0.1); color: var(--color-teal-dark); border: 1px solid rgba(0,198,167,0.2); }
+  .tipo-carrusel { background: rgba(13,27,42,0.07); color: var(--color-navy); border: 1px solid rgba(13,27,42,0.15); }
+  .tipo-ref { background: rgba(100,116,139,0.1); color: #475569; border: 1px solid rgba(100,116,139,0.2); }
+  .tipo-evento { background: rgba(26,111,165,0.1); color: #1A6FA5; border: 1px solid rgba(26,111,165,0.2); }
+  .tipo-trend { background: rgba(28,196,160,0.1); color: var(--color-teal-dark); border: 1px solid rgba(28,196,160,0.2); }
+  .canal-d  { color: var(--color-teal-dark); font-weight: 700; }
+  .canal-p  { color: var(--color-navy); font-weight: 700; }
+
+  /* KPI STATS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .kpi-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-align: left;
+  }
+  .kpi-value {
+    font-size: 28pt; font-weight: 900;
+    color: var(--color-text-1);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-value .accent { color: var(--color-teal); }
+  .kpi-label {
+    font-size: 9.5pt; font-weight: 600;
+    color: var(--color-text-2);
+    line-height: 1.4;
+  }
+  .kpi-sub {
+    font-size: 8pt; color: var(--color-text-3);
+    margin-top: 4px;
+  }
+
+  /* REGLA EDITORIAL */
+  .rule-row {
+    display: flex; gap: 18px;
+    margin-bottom: 12px;
+  }
+  .rule-block {
+    flex: 1;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .rule-block.si {
+    background: var(--color-teal-light);
+    border: 1px solid rgba(0,198,167,0.22);
+  }
+  .rule-block.no {
+    background: #FFF5F5;
+    border: 1px solid rgba(239,68,68,0.18);
+  }
+  .rule-block .rule-title {
+    font-size: 10pt; font-weight: 800; margin-bottom: 10px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .rule-block.si .rule-title { color: var(--color-teal-dark); }
+  .rule-block.no .rule-title { color: #DC2626; }
+  .rule-item {
+    font-size: 9.5pt; color: var(--color-text-2);
+    padding-left: 18px; position: relative;
+    margin-bottom: 6px; line-height: 1.45;
+  }
+  .rule-item::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 7px; height: 7px; border-radius: 2px;
+  }
+  .rule-block.si .rule-item::before { background: var(--color-teal); }
+  .rule-block.no .rule-item::before { background: #EF4444; }
+
+  /* CTA OSCURA */
+  .slide.dark { background: var(--color-navy-deep); }
+  .slide.dark .slide-header .logo-text .from { color: #fff; }
+  .slide.dark .slide-header .logo-text .zero { color: #B9D9EC; }
+  .slide.dark .slide-header .logo-text .to   { color: #7FCDD9; }
+  .slide.dark .slide-header .logo-text .ten  { color: var(--color-teal); }
+  .slide.dark .slide-num { color: var(--color-text-3); }
+  .slide.dark .slide-footer { background: #000; }
+  .slide.dark .mesh-bg {
+    background:
+      radial-gradient(ellipse 45% 55% at 12% 20%, rgba(0,198,167,0.22), transparent 70%),
+      radial-gradient(ellipse 45% 55% at 88% 80%, rgba(0,198,167,0.16), transparent 70%);
+  }
+  .slide.dark .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  }
+  .cta-wrap {
+    position: relative;
+    padding: 30mm 30mm;
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    text-align: center; align-items: center;
+  }
+  .cta-eyebrow {
+    font-size: 9pt; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--color-teal);
+    margin-bottom: 20px;
+  }
+  .cta-title {
+    font-size: 48pt; font-weight: 900;
+    letter-spacing: -2px; line-height: 1.05;
+    color: #fff; margin-bottom: 18px;
+    max-width: 260mm;
+  }
+  .cta-sub {
+    font-size: 13pt; color: var(--color-text-3);
+    max-width: 220mm; line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .btn-teal {
+    display: inline-block;
+    background: var(--color-teal); color: var(--color-navy-deep);
+    font-weight: 800; font-size: 12pt;
+    padding: 14px 30px; border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 28px;
+  }
+  .cta-contact {
+    display: flex; gap: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .cta-contact-item .label {
+    font-size: 8pt; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--color-text-3);
+    margin-bottom: 5px;
+  }
+  .cta-contact-item .value {
+    font-size: 10.5pt; font-weight: 700;
+    color: #fff;
+  }
+
+  /* SECTION DIVIDER */
+  .divider-slide {
+    background: var(--color-navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .divider-content {
+    text-align: center;
+    position: relative; z-index: 10;
+    padding: 20mm;
+  }
+  .divider-num {
+    font-size: 10pt; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--color-teal);
+    margin-bottom: 16px;
+  }
+  .divider-title {
+    font-size: 52pt; font-weight: 900;
+    letter-spacing: -2px; line-height: 1.05;
+    color: #fff;
+  }
+  .divider-sub {
+    font-size: 13pt; color: var(--color-text-3);
+    margin-top: 14px; line-height: 1.6;
+  }
+  .divider-slide .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  }
+  .divider-slide .mesh-bg {
+    background:
+      radial-gradient(ellipse 45% 55% at 12% 20%, rgba(0,198,167,0.25), transparent 70%),
+      radial-gradient(ellipse 45% 55% at 88% 80%, rgba(0,198,167,0.18), transparent 70%);
+  }
+  .divider-slide .slide-header .logo-text .from { color: #fff; }
+  .divider-slide .slide-header .logo-text .zero { color: #B9D9EC; }
+  .divider-slide .slide-header .logo-text .to   { color: #7FCDD9; }
+  .divider-slide .slide-header .logo-text .ten  { color: var(--color-teal); }
+  .divider-slide .slide-num { color: var(--color-text-3); }
+  .divider-slide .slide-footer { background: #000; }
+
+</style>
+</head>
+<body>
+
+<!-- ════ SLIDE 1 — PORTADA ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="glow bl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">Estrategia LinkedIn · Mayo 2026</div>
+  </div>
+  <div class="cover">
+    <div class="cover-eyebrow"><span class="dot"></span>Estrategia de contenidos y presencia</div>
+    <h1 class="cover-title">
+      <span class="line">LinkedIn</span>
+      <span class="line">2026.</span>
+      <span class="line accent">Sistema y ejecución.</span>
+    </h1>
+    <p class="cover-subtitle">
+      Cómo FromZeroToTen construye autoridad operativa,<br>
+      audiencia relevante y negocio B2B en LinkedIn.
+    </p>
+    <div class="cover-contact">
+      <a href="mailto:hola&#64;fromzerototen.com">hola&#64;fromzerototen.com</a>
+      <span class="sep"></span>
+      <a href="https://fromzerototen.com">fromzerototen.com</a>
+      <span class="sep"></span>
+      <a class="cta" href="https://calendar.app.google/3KKqAF9D6J8W6mn4A" target="_blank" rel="noopener noreferrer">Agenda una llamada</a>
+    </div>
+  </div>
+  <div class="cover-tagline">Madrid · 2026</div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Ten</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 2 — POSICIONAMIENTO ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">01 · Posicionamiento</div>
+  </div>
+  <div class="content">
+    <div class="section-label">Posicionamiento</div>
+    <h2 class="content-title">El lugar que ocupa FZTT.</h2>
+    <p class="content-lead">FromZeroToTen construye el sistema operativo que permite a las empresas escalar con orden, ejecutar con método y crecer desde dentro. Eso es lo que comunicamos en LinkedIn: autoridad operativa construida post a post.</p>
+    <div class="cards-grid cols-3" style="gap: 12px; flex: 1;">
+      <div class="card">
+        <div class="card-num">Territorio central</div>
+        <h3>Estructura, operaciones y escalado</h3>
+        <p style="margin-bottom: 10px;">Sistemas, procesos, eficiencia, toma de decisiones, margen, ejecución, orden operativo, IA aplicada al negocio. Cada post refuerza que FZTT sabe cómo funciona una empresa por dentro.</p>
+        <span class="card-tag" style="background: rgba(0,198,167,0.1); color: var(--color-teal-dark);">✓ Territorio propio</span>
+      </div>
+      <div class="card">
+        <div class="card-num">El ángulo que lo cambia todo</div>
+        <h3>Talento como síntoma de sistema roto</h3>
+        <p style="margin-bottom: 10px;">Cuando hablamos de personas, lo hacemos desde la falta de proceso, de claridad o de estructura — nunca desde la gestión de personas como fin. El talento entra cuando el ángulo es operativo.</p>
+        <span class="card-tag" style="background: rgba(0,198,167,0.08); color: var(--color-teal-dark);">Ángulo: sistema</span>
+      </div>
+      <div class="card dark">
+        <div class="card-num">Horizonte temporal B2B</div>
+        <h3>El ciclo de confianza es largo</h3>
+        <p>En B2B, el camino desde la primera impresión hasta la conversación de negocio toma meses. Cada post construye autoridad sostenida. LinkedIn es siembra, no cierre.</p>
+        <span class="card-tag">Estrategia de presencia constante</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Authority</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 3 — DOS CANALES ════ -->
+<div class="slide">
+  <div class="mesh-bg alt"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">02 · Los dos canales</div>
+  </div>
+  <div class="content" style="padding-top: 24mm;">
+    <div class="section-label">Arquitectura de canales</div>
+    <h2 class="content-title" style="font-size: 28pt; margin-bottom: 8px;">Página de empresa + Perfil de David.</h2>
+    <p class="content-lead" style="margin-bottom: 14px;">Dos canales con roles distintos y complementarios. El perfil personal multiplica ×8 el alcance de la página. Trabajan en tándem, nunca en paralelo.</p>
+    <div class="split" style="gap: 20px; flex: 1;">
+      <div>
+        <div class="canal-badge empresa">📌 Página FromZeroToTen</div>
+        <div class="card teal-accent" style="margin-bottom: 10px;">
+          <h3 style="font-size: 11pt;">Contenido estructurado y operativo</h3>
+          <p>Carruseles educativos, frameworks, reflexiones estructuradas, posts de conocimiento maquetados con identidad de marca.</p>
+        </div>
+        <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 16px;">
+          <div style="font-size: 8.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-text-3); margin-bottom: 8px;">Cadencia</div>
+          <p style="font-size: 10pt; color: var(--color-text-2); line-height: 1.5;"><strong style="color: var(--color-text-1);">2 posts / semana</strong><br>Martes + Jueves · 10:00–13:00h</p>
+        </div>
+      </div>
+      <div>
+        <div class="canal-badge david">👤 Perfil personal de David</div>
+        <div class="card teal-accent" style="margin-bottom: 10px;">
+          <h3 style="font-size: 11pt;">Humanidad, reflexión y presencia</h3>
+          <p>Reflexiones reales, experiencias propias, opinión y eventos. La cara humana de FZTT. Foto personal presente siempre. Amplificación del martes se activa en Fase 2.</p>
+        </div>
+        <div style="background: var(--color-bg-alt); border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 16px;">
+          <div style="font-size: 8.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-text-3); margin-bottom: 8px;">Cadencia</div>
+          <p style="font-size: 10pt; color: var(--color-text-2); line-height: 1.5;"><strong style="color: var(--color-text-1);">1 post / semana</strong><br>Viernes 15–17h · (Miércoles activable en Fase 2)</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; background: rgba(0,198,167,0.06); border: 1px solid rgba(0,198,167,0.2); border-radius: 10px; padding: 10px 16px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 9pt; font-weight: 800; color: var(--color-teal-dark); text-transform: uppercase; letter-spacing: 1px;">Regla de oro</span>
+      <span style="font-size: 9.5pt; color: var(--color-text-2);">David amplifica siempre a la página. La página NUNCA comenta posts de David. El perfil personal nunca pierde su tono humano.</span>
+    </div>
+    <div style="margin-top: 8px; background: var(--color-bg-alt); border: 1px solid var(--color-border); border-radius: 10px; padding: 10px 16px;">
+      <div style="font-size: 8pt; font-weight: 800; color: var(--color-text-1); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 7px;">Criterio de amplificación · cómo decide David qué hacer en cada post FZTT</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+        <div style="display: flex; gap: 7px; align-items: flex-start;">
+          <span style="min-width: 18px; height: 18px; background: var(--color-teal); color: #fff; font-size: 7pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">↗</span>
+          <div><div style="font-size: 8pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">Compartir</div><div style="font-size: 7.5pt; color: var(--color-text-2); line-height: 1.4;">David tiene algo genuino que añade — extiende el mensaje sin repetirlo.</div></div>
+        </div>
+        <div style="display: flex; gap: 7px; align-items: flex-start;">
+          <span style="min-width: 18px; height: 18px; background: var(--color-navy); color: #fff; font-size: 7pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">💬</span>
+          <div><div style="font-size: 8pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">Reaccionar + comentar</div><div style="font-size: 7.5pt; color: var(--color-text-2); line-height: 1.4;">El post es sólido, David solo necesita añadir un matiz breve.</div></div>
+        </div>
+        <div style="display: flex; gap: 7px; align-items: flex-start;">
+          <span style="min-width: 18px; height: 18px; background: var(--color-text-3); color: #fff; font-size: 7pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">—</span>
+          <div><div style="font-size: 8pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">No hacer nada</div><div style="font-size: 7.5pt; color: var(--color-text-2); line-height: 1.4;">El tema no encaja con el eje de David en este bloque, o crearía ruido.</div></div>
+        </div>
+      </div>
+      <div style="margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--color-border); font-size: 7.5pt; color: var(--color-text-3); line-height: 1.4;"><strong style="color: var(--color-text-2);">Reglas de escritura en todos los casos:</strong> voz observacional · máximo 2-3 frases · sin guiones medios · sin primera persona confesional · conectado a resultado de negocio.</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Channel</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 4 — TIPOLOGÍAS ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">03 · Tipos de contenido</div>
+  </div>
+  <div class="content" style="padding-top: 24mm;">
+    <div class="section-label">Tipologías de contenido</div>
+    <h2 class="content-title" style="font-size: 27pt; margin-bottom: 8px;">5 tipos. 2 canales. 1 sistema.</h2>
+    <div class="cards-grid cols-3" style="gap: 10px; flex: 1;">
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="card-num" style="margin-bottom: 0;">01</span>
+          <span class="canal-badge empresa" style="margin-bottom: 0; font-size: 7.5pt; padding: 2px 8px;">Página</span>
+        </div>
+        <h3 style="font-size: 11pt;">Conocimiento operativo</h3>
+        <p>Posts de texto con una idea clara sobre estructura, sistemas o ejecución. Autoridad directa. Formato: imagen estática tipo A + texto.</p>
+      </div>
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="card-num" style="margin-bottom: 0;">02</span>
+          <span class="canal-badge empresa" style="margin-bottom: 0; font-size: 7.5pt; padding: 2px 8px;">Página</span>
+        </div>
+        <h3 style="font-size: 11pt;">Carrusel educativo</h3>
+        <p>7 slides PDF nativo que desarrollan un problema o framework. Máximo alcance orgánico. Siempre termina con cómo FZTT lo resuelve.</p>
+      </div>
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="card-num" style="margin-bottom: 0;">03</span>
+          <span class="canal-badge david" style="margin-bottom: 0; font-size: 7.5pt; padding: 2px 8px;">David</span>
+        </div>
+        <h3 style="font-size: 11pt;">Reflexión personal</h3>
+        <p>Texto + foto real de David. Sin historias inventadas. Observaciones reales, patrones detectados, aprendizajes honestos. Viernes tarde.</p>
+      </div>
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="card-num" style="margin-bottom: 0;">04</span>
+          <span class="canal-badge david" style="margin-bottom: 0; font-size: 7.5pt; padding: 2px 8px;">David</span>
+        </div>
+        <h3 style="font-size: 11pt;">Evento y presencia</h3>
+        <p>Fotos reales en eventos, ponencias, reuniones. La imagen humana es el gancho, no el texto. David escribe desde su perspectiva propia.</p>
+      </div>
+      <div class="card" style="padding: 14px 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="card-num" style="margin-bottom: 0;">05</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 20px; font-size: 7.5pt; font-weight: 700; background: rgba(26,111,165,0.1); color: #1A6FA5; border: 1px solid rgba(26,111,165,0.2); margin-bottom: 0;">Auto</span>
+        </div>
+        <h3 style="font-size: 11pt;">Actualidad (sistema auto)</h3>
+        <p>1–2 posts al mes generados por el sistema de tendencias (Bloque 5). El Referente + Emprendedores.es + HBR. Ángulo: cómo afecta al orden operativo.</p>
+      </div>
+      <div class="card dark" style="padding: 14px 16px;">
+        <div class="card-num" style="margin-bottom: 6px;">Amplificación</div>
+        <h3 style="font-size: 11pt;">David comenta la página</h3>
+        <p>Miércoles: David añade su perspectiva humana al post del martes de la página. Nunca al revés. Esto multiplica el alcance sin coste extra.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Content</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 5 — FILOSOFÍA EDITORIAL ════ -->
+<div class="slide">
+  <div class="mesh-bg alt"></div>
+  <div class="grid-bg"></div>
+  <div class="glow bl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">04 · Filosofía editorial</div>
+  </div>
+  <div class="content" style="padding-top: 22mm;">
+    <div class="section-label">Filosofía editorial</div>
+    <h2 class="content-title" style="font-size: 28pt; margin-bottom: 8px;">Autenticidad por encima de todo.</h2>
+    <p class="content-lead" style="margin-bottom: 14px;">LinkedIn está lleno de historias fabricadas. FZTT no entra en ese juego. La credibilidad es el activo más valioso — no se sacrifica por engagement artificial.</p>
+    <div class="rule-row" style="margin-bottom: 10px;">
+      <div class="rule-block si" style="flex: 1;">
+        <div class="rule-title">✓ Sí hacemos</div>
+        <div class="rule-item">Reflexiones reales y observaciones propias</div>
+        <div class="rule-item">Patrones detectados en empresas reales (sin nombrar)</div>
+        <div class="rule-item">Aprendizajes honestos: "he visto muchas empresas que…"</div>
+        <div class="rule-item">Insights operativos con autoridad práctica</div>
+        <div class="rule-item">Imagen personal de David en posts reflexivos</div>
+      </div>
+      <div class="rule-block no" style="flex: 1;">
+        <div class="rule-title">✗ No hacemos</div>
+        <div class="rule-item">Historias inventadas: "Una vez tuve un cliente que…"</div>
+        <div class="rule-item">Conversaciones fabricadas con clientes ficticios</div>
+        <div class="rule-item">Anécdotas de éxito que nunca ocurrieron</div>
+        <div class="rule-item">Titulares sensacionalistas sin sustancia</div>
+        <div class="rule-item">Contenido de RRHH sin ángulo de sistema/proceso</div>
+      </div>
+    </div>
+    <div style="background: var(--color-navy-card); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
+      <div style="font-size: 28pt; line-height: 1;">💡</div>
+      <div>
+        <div style="font-size: 10pt; font-weight: 800; color: #fff; margin-bottom: 4px;">La imagen personal es la palanca más potente</div>
+        <div style="font-size: 9.5pt; color: var(--color-text-3); line-height: 1.5;">Los mejores creadores B2B usan su cara constantemente. La gente no se para por logos — se para por personas. David necesita un banco de fotos propias y usarlo de forma consistente.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Trust</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 6 — HORARIOS Y FRECUENCIA ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">05 · Horarios y frecuencia</div>
+  </div>
+  <div class="content" style="padding-top: 22mm; padding-bottom: 16mm;">
+    <div class="section-label">Cadencia semanal</div>
+    <h2 class="content-title" style="font-size: 27pt; margin-bottom: 10px;">3 posts semanales. Una lógica clara.</h2>
+    <div class="split wide-right" style="gap: 20px; flex: 1;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="t-step">
+          <div class="t-step-row">
+            <span class="t-num">MAR</span>
+            <div class="t-title">Página FZTT — 10:00–13:00h</div>
+            <span class="t-result">Conocimiento / Carrusel</span>
+          </div>
+          <div class="t-desc">Post estructurado de la página. Máximo alcance orgánico en horario de alta actividad profesional.</div>
+        </div>
+        <div class="t-step" style="opacity:0.45; border-style: dashed;">
+          <div class="t-step-row">
+            <span class="t-num" style="background:var(--color-text-3);">MIÉ</span>
+            <div class="t-title">David — Amplificación · <em>Fase 2</em></div>
+            <span class="t-result" style="background:var(--color-bg-alt); color:var(--color-text-3);">Opcional</span>
+          </div>
+          <div class="t-desc">Pendiente de activar. Cuando el sistema esté rodado, David amplificará el post del martes añadiendo su perspectiva humana. Se activa en la revisión de semana 4.</div>
+        </div>
+        <div class="t-step">
+          <div class="t-step-row">
+            <span class="t-num">JUE</span>
+            <div class="t-title">Página FZTT — 10:00–13:00h</div>
+            <span class="t-result">Segundo post semanal</span>
+          </div>
+          <div class="t-desc">Segundo post de la página. Puede ser tendencia, framework o insight operativo. Mantiene cadencia sin saturar.</div>
+        </div>
+        <div class="t-step">
+          <div class="t-step-row">
+            <span class="t-num">VIE</span>
+            <div class="t-title">David — 15:00–17:00h</div>
+            <span class="t-result">Reflexión personal</span>
+          </div>
+          <div class="t-desc">Viernes tarde: el profesional hace scroll relajado y busca contenido humano. Ideal para reflexión auténtica de David.</div>
+        </div>
+      </div>
+      <div>
+        <div class="quote-block" style="padding: 20px 22px;">
+          <span class="q-mark" style="font-size: 38pt; margin-bottom: 10px;">"</span>
+          <div class="q-text" style="font-size: 13pt;">El viernes tarde no funciona para corporativo. Funciona perfectamente para personal.</div>
+          <div class="q-tags" style="margin-top: 12px; padding-top: 10px;">
+            <span class="q-tag">Buffer · 4,8M posts analizados</span>
+            <span class="q-tag">Sprout Social Q1 2026</span>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 12px; padding: 14px 18px; border-left: 3px solid var(--color-teal);">
+          <h3 style="font-size: 10.5pt; margin-bottom: 4px;">Ventana de validación: 4–6 semanas</h3>
+          <p style="font-size: 9pt;">Según el análisis de Buffer (4,8M posts) y Sprout Social Q1 2026, las primeras señales de rendimiento se consolidan en semana 4. La revisión completa de hipótesis se hace en semana 6. Ajuste de calendario si los datos lo justifican.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Cadence</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 6 — SISTEMA TENDENCIAS (BLOQUE 5) ════ -->
+<div class="slide">
+  <div class="mesh-bg alt"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">06 · Sistema automatizado de tendencias</div>
+  </div>
+  <div class="content" style="padding-top: 22mm; padding-bottom: 14mm;">
+    <div class="section-label">Bloque 5 · Sistema automático</div>
+    <h2 class="content-title" style="font-size: 26pt; margin-bottom: 8px;">Radar de tendencias con IA.</h2>
+    <p class="content-lead" style="margin-bottom: 14px; font-size: 10.5pt;">El 80% del contenido nace de los problemas reales de las empresas. El radar de tendencias es soporte complementario para dar sensación de actualidad. Objetivo: 1–2 posts/mes de actualidad.</p>
+    <div class="split" style="gap: 20px; flex: 1;">
+      <div>
+        <h3 style="font-size: 10pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px;">Fuentes validadas</h3>
+        <div style="display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px;">
+          <div class="card" style="padding: 9px 13px; flex-direction: row; align-items: center; gap: 10px;">
+            <span style="font-size: 9.5pt; font-weight: 800; color: var(--color-teal-dark);">→</span>
+            <div>
+              <div style="font-size: 10pt; font-weight: 800; color: var(--color-text-1);">El Referente</div>
+              <div style="font-size: 8.5pt; color: var(--color-text-2);">Startups, tecnología y economía digital española</div>
+            </div>
+          </div>
+          <div class="card" style="padding: 9px 13px; flex-direction: row; align-items: center; gap: 10px;">
+            <span style="font-size: 9.5pt; font-weight: 800; color: var(--color-teal-dark);">→</span>
+            <div>
+              <div style="font-size: 10pt; font-weight: 800; color: var(--color-text-1);">Emprendedores.es</div>
+              <div style="font-size: 8.5pt; color: var(--color-text-2);">Empresa, gestión y empresariado español</div>
+            </div>
+          </div>
+          <div class="card" style="padding: 9px 13px; flex-direction: row; align-items: center; gap: 10px;">
+            <span style="font-size: 9.5pt; font-weight: 800; color: var(--color-teal-dark);">→</span>
+            <div>
+              <div style="font-size: 10pt; font-weight: 800; color: var(--color-text-1);">HBR en español</div>
+              <div style="font-size: 8.5pt; color: var(--color-text-2);">Management, liderazgo y estrategia con rigor académico</div>
+            </div>
+          </div>
+          <div class="card" style="padding: 9px 13px; flex-direction: row; align-items: center; gap: 10px; opacity: 0.55;">
+            <span style="font-size: 9.5pt; font-weight: 800; color: #EF4444;">✗</span>
+            <div>
+              <div style="font-size: 10pt; font-weight: 800; color: var(--color-text-1);">RRHH Digital</div>
+              <div style="font-size: 8.5pt; color: var(--color-text-2);">Excluido — posicionamiento incorrecto para FZTT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size: 10pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px;">Sistema de puntuación (máx. 30 pts)</h3>
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 11px;">
+          <div class="t-step" style="padding: 9px 13px;">
+            <div class="t-step-row">
+              <span class="t-num" style="font-size: 7.5pt;">10</span>
+              <div class="t-title" style="font-size: 9.5pt;">Volumen de conversación</div>
+              <span class="t-result" style="font-size: 7.5pt;">peso ×2</span>
+            </div>
+            <div class="t-desc" style="font-size: 8pt;">¿Se habla de esto en varios medios y en LinkedIn esta semana? Indicador clave de que el público ya lo ha visto.</div>
+          </div>
+          <div class="t-step" style="padding: 9px 13px;">
+            <div class="t-step-row">
+              <span class="t-num" style="font-size: 7.5pt;">5</span>
+              <div class="t-title" style="font-size: 9.5pt;">Relevancia FZTT + Ángulo David</div>
+              <span class="t-result" style="font-size: 7.5pt;">5 pts c/u</span>
+            </div>
+            <div class="t-desc" style="font-size: 8pt;">¿Toca los pilares de la marca? ¿Puede David hablar de esto con perspectiva propia?</div>
+          </div>
+          <div class="t-step" style="padding: 9px 13px;">
+            <div class="t-step-row">
+              <span class="t-num" style="font-size: 7.5pt;">5</span>
+              <div class="t-title" style="font-size: 9.5pt;">Resonancia España-PYME + Engagement</div>
+              <span class="t-result" style="font-size: 7.5pt;">5 pts c/u</span>
+            </div>
+            <div class="t-desc" style="font-size: 8pt;">¿Conecta con empresas medianas españolas? ¿Generará debate o respuesta en LinkedIn?</div>
+          </div>
+        </div>
+        <div style="background: rgba(0,198,167,0.06); border: 1px solid rgba(0,198,167,0.2); border-radius: 8px; padding: 9px 13px;">
+          <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.5;">🔴 ≥22 → Top Pick directo para David · 🟡 15–21 → guardar para revisar siguiente viernes si sigue en tendencia · 🟢 &lt;15 → archivo de referencia. <strong style="color: var(--color-teal-dark);">Nunca publicación automática.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Signal</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 7 — SISTEMA VOZ DAVID (BLOQUE 6) ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">07 · Sistema de voz de David</div>
+  </div>
+  <div class="content" style="padding-top: 18mm; padding-bottom: 12mm;">
+    <div class="section-label">Bloque 6 · Voz automatizada</div>
+    <h2 class="content-title" style="font-size: 24pt; margin-bottom: 6px;">Posts de David. Escritos por IA. Mejorados por sus propias correcciones.</h2>
+    <p class="content-lead" style="margin-bottom: 12px; font-size: 10pt;">David diseñó el sistema él mismo: un agente que escribe y otro que aprende de cada corrección que él hace. Con el tiempo, el borrador se acerca cada vez más a lo que David habría escrito. El trabajo de David es leer, corregir si quiere, y subir la foto.</p>
+    <div class="split" style="gap: 18px; flex: 1;">
+
+      <!-- COLUMNA IZQUIERDA: Arquitectura real del agente -->
+      <div>
+        <h3 style="font-size: 9.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px;">Cómo funciona el agente</h3>
+
+        <!-- Flujo de pasos numerados -->
+        <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 11px;">
+
+          <!-- Paso 1 -->
+          <div style="display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--color-border);">
+            <span style="min-width: 20px; height: 20px; background: var(--color-teal); color: #fff; font-size: 7.5pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">1</span>
+            <div>
+              <div style="font-size: 8.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">El agente se activa solo — sin intervención manual</div>
+              <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.45;">Dos tareas programadas en Claude Cowork. <strong>Viernes 9h</strong>: lee el Top Pick del fichero Tendencias y genera la reflexión de David. <strong>Miércoles 9h</strong>: lee el post FZTT de esa semana directamente del fichero de contenidos (ya generado por el flujo de producción) y genera la ampliación. Ningún paso manual.</div>
+            </div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div style="display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--color-border);">
+            <span style="min-width: 20px; height: 20px; background: var(--color-teal); color: #fff; font-size: 7.5pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">2</span>
+            <div>
+              <div style="font-size: 8.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">Lee el historial de correcciones en Notion</div>
+              <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.45;">Antes de escribir, el agente lee automáticamente los pares <strong>Borrador IA → Versión David</strong> anteriores. Así calibra el tono sin que nadie le pase nada. El historial crece solo, semana a semana.</div>
+            </div>
+          </div>
+
+          <!-- Paso 3 -->
+          <div style="display: flex; gap: 10px; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--color-border);">
+            <span style="min-width: 20px; height: 20px; background: var(--color-teal); color: #fff; font-size: 7.5pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">3</span>
+            <div>
+              <div style="font-size: 8.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">Escribe el borrador directamente en Notion</div>
+              <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.45;">El borrador aparece en la columna <strong>Borrador IA</strong> sin que David ni Gigi hagan nada. David abre Notion, lee, corrige si quiere en <strong>Versión David</strong>, y publica. Fin del flujo.</div>
+            </div>
+          </div>
+
+          <!-- Paso 4 -->
+          <div style="display: flex; gap: 10px; align-items: flex-start; padding: 9px 0;">
+            <span style="min-width: 20px; height: 20px; background: var(--color-navy); color: #fff; font-size: 7.5pt; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;">4</span>
+            <div>
+              <div style="font-size: 8.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 2px;">La corrección de David es el dato de entrenamiento</div>
+              <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.45;">El delta entre borrador y corrección se acumula en Notion. La semana siguiente el agente lo lee y mejora. Sin intervención manual. ~2 meses de supervisión 100%; luego reducción progresiva.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background: rgba(0,198,167,0.06); border: 1px solid rgba(0,198,167,0.2); border-radius: 8px; padding: 9px 13px;">
+          <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.5;"><strong style="color: var(--color-teal-dark);">Requisito de setup:</strong> Conectar el conector Notion al Claude Cowork de David (una vez). A partir de ahí el sistema es completamente autónomo: el agente lee y escribe Notion sin intermediarios.</div>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: 3 tipos de post -->
+      <div>
+        <h3 style="font-size: 9.5pt; font-weight: 800; color: var(--color-text-1); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px;">Los 3 tipos de post · inputs obligatorios</h3>
+        <div style="display: flex; flex-direction: column; gap: 7px;">
+          <div class="card" style="padding: 10px 13px; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+              <span style="background: var(--color-teal-dark); color: #fff; font-size: 7.5pt; font-weight: 800; padding: 2px 8px; border-radius: 20px; white-space: nowrap;">Mié · Ampliación FZTT</span>
+            </div>
+            <div style="font-size: 8.5pt; color: var(--color-text-2); line-height: 1.45;">Input: el post de la empresa publicado esa semana. David lo comenta con perspectiva propia — no lo repite, lo amplía. Refuerza la marca sin que la marca aparezca hablando por él.</div>
+          </div>
+          <div class="card" style="padding: 10px 13px; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+              <span style="background: var(--color-navy); color: #fff; font-size: 7.5pt; font-weight: 800; padding: 2px 8px; border-radius: 20px; white-space: nowrap;">Vie · Reflexión semanal</span>
+              <span style="font-size: 7.5pt; font-weight: 700; color: var(--color-teal-dark); white-space: nowrap;">↔ Bloque 5</span>
+            </div>
+            <div style="font-size: 8.5pt; color: var(--color-text-2); line-height: 1.45;">Input: la tendencia con mayor puntuación del Bloque 5 esa semana. El agente genera el análisis de David sobre ese tema. Sin foto de evento, reflexión directa. David revisa y añade la foto.</div>
+          </div>
+          <div class="card" style="padding: 10px 13px; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 3px;">
+              <span style="background: var(--color-text-3); color: #fff; font-size: 7.5pt; font-weight: 800; padding: 2px 8px; border-radius: 20px; white-space: nowrap;">Puntual · Post de evento</span>
+            </div>
+            <div style="font-size: 8.5pt; color: var(--color-text-2); line-height: 1.45;">Input mínimo obligatorio: nombre del evento · personas y organizaciones etiquetables · algo a destacar (si no, la IA lo infiere). Si falta algún input, el agente lo pide antes de generar.</div>
+          </div>
+        </div>
+        <div style="background: rgba(13,27,42,0.04); border: 1px solid var(--color-border); border-radius: 8px; padding: 9px 13px; margin-top: 8px;">
+          <div style="font-size: 8pt; color: var(--color-text-2); line-height: 1.5;"><strong style="color: var(--color-text-1);">Propósito de David:</strong> "Ayudar a otras personas a hacer mejor su camino, el suyo propio." Negocios con impacto <strong>y</strong> con rentabilidad. Sin defender iniciativas que no sean sostenibles.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Voice</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 8 — KPIs BASELINE ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="glow bl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">08 · KPIs y métricas</div>
+  </div>
+  <div class="content" style="padding-top: 22mm;">
+    <div class="section-label">KPIs de referencia · Mayo 2026</div>
+    <h2 class="content-title" style="font-size: 26pt; margin-bottom: 10px;">Baseline y objetivos de seguimiento.</h2>
+    <div class="kpi-grid" style="margin-bottom: 16px;">
+      <div class="kpi-card">
+        <div class="kpi-value">334<span class="accent" style="font-size: 18pt;">/mes</span></div>
+        <div class="kpi-label">Impresiones página FZTT</div>
+        <div class="kpi-sub">Baseline mayo 2026. Objetivo 6 semanas: 600–800/mes (~×2). Mediana B2B general: 3.700/mes (Socialinsider 2026), pero páginas pequeñas en crecimiento activo duplican en 4–6 semanas con cadencia 2×/sem.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">4<span class="accent">,8</span><span style="font-size: 18pt; color: var(--color-text-3);">%</span></div>
+        <div class="kpi-label">Tasa de engagement página</div>
+        <div class="kpi-sub">Media B2B páginas: 2,1%. Bueno: 4–6%. Excelente: 6–10% (Socialinsider 2026). FZTT ya en zona "bueno". Objetivo: mantener ≥4,5%. El carrusel/documento lidera: 6,6–7% de engagement.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">~300<span class="accent" style="font-size: 16pt;"> imp</span></div>
+        <div class="kpi-label">Impresiones por post (David)</div>
+        <div class="kpi-sub">Baseline real (~2.250 imp/mes). Con foto auténtica: +40–60% → 450–480/post, ~3.000–3.500/mes (Sprout Social Q1 2026). Media perfiles personales B2B: 3,85% engagement.</div>
+      </div>
+    </div>
+    <!-- Segunda fila KPIs: los 3 que faltaban -->
+    <div class="kpi-grid" style="margin-bottom: 12px;">
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size: 28pt;">~2.600<span class="accent" style="font-size: 16pt;">/mes</span></div>
+        <div class="kpi-label">Impresiones totales (Página + David)</div>
+        <div class="kpi-sub">Baseline combinado: 334 página + ~2.250 David = ~2.584/mes. Objetivo 6–8 semanas: 3.600–4.500/mes (página ×2 + foto auténtica en David). El rango suma los objetivos individuales de cada canal.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size: 28pt;">+3<span class="accent">–5</span><span style="font-size: 18pt; color: var(--color-text-3);">%</span></div>
+        <div class="kpi-label">Seguidores nuevos página / mes</div>
+        <div class="kpi-sub">Páginas 1–5K seguidores con contenido activo crecieron 24,5% anual en 2025 (Socialinsider). Posting 1–2×/sem genera crecimiento 7× más rápido que publicar esporádicamente (LinkedIn 2026). Objetivo mensual: +3–5% sobre base actual.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size: 28pt;">&gt;3<span class="accent">,8</span><span style="font-size: 18pt; color: var(--color-text-3);">%</span></div>
+        <div class="kpi-label">Tasa de engagement David</div>
+        <div class="kpi-sub">Media perfiles personales LinkedIn 2026: 3,85%. Bueno: 4–6%. Posts con imagen superan el 5,2% de media (Socialinsider Q1 2026). Objetivo: ≥3,85% desde el inicio, mejorar con foto auténtica en cada post reflexivo.</div>
+      </div>
+    </div>
+    <div class="cards-grid cols-2" style="gap: 10px;">
+      <div class="card" style="padding: 11px 14px;">
+        <div class="card-num" style="font-size: 8.5pt; margin-bottom: 3px;">Revisión semana 4 · Revisión semana 6</div>
+        <h3 style="font-size: 10pt; margin-bottom: 4px;">Señales de validación y pivot</h3>
+        <p style="font-size: 8pt;">Semana 4: ¿las impresiones suben? ¿el engagement se mantiene? ¿David recibe mensajes directos? Semana 6: revisión completa y decisión sobre semanas 7–12.</p>
+      </div>
+      <div class="card dark" style="padding: 11px 14px;">
+        <div class="card-num" style="font-size: 8.5pt; margin-bottom: 3px;">Seguimiento trimestral</div>
+        <h3 style="font-size: 10pt; margin-bottom: 4px;">Leads atribuibles a LinkedIn</h3>
+        <p style="font-size: 8pt; color: var(--color-text-3);">Contactos que mencionan LinkedIn como origen de conversación. Ciclo B2B medio: 281 días. No esperar resultados comerciales antes de semana 12+.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Metrics</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 9 — CALENDARIO S1-S4 ════ -->
+<div class="slide">
+  <div class="mesh-bg alt"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">09 · Calendario editorial · Semanas 1–4</div>
+  </div>
+  <div class="content" style="padding-top: 22mm; padding-bottom: 12mm;">
+    <div class="section-label">Calendario editorial</div>
+    <h2 class="content-title" style="font-size: 24pt; margin-bottom: 10px;">Semanas 1–4. Posts validados y nueva cadencia.</h2>
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th style="width: 8%;">Sem.</th>
+          <th style="width: 10%;">Día / Hora</th>
+          <th style="width: 12%;">Canal</th>
+          <th style="width: 16%;">Tipo</th>
+          <th>Contenido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>S1</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-carrusel">Carrusel</span></td>
+          <td><strong>"5 síntomas de pérdida de talento"</strong> — 7 slides PDF nativo. Portada: "Y todavía no lo sabes." Cierre: cómo FZTT lo resuelve mediante sistemas. <em>Post validado ✓</em></td>
+        </tr>
+        <tr>
+          <td><strong>S1</strong></td>
+          <td>Vie 15–17h</td>
+          <td><span class="canal-d">David</span></td>
+          <td><span class="tipo tipo-ref">Reflexión</span></td>
+          <td><strong>Lección aprendida tomando malas decisiones de equipo.</strong> Texto propio de David + foto real. Sin historias inventadas. Patrón real, observación honesta. <em>Post validado ✓</em></td>
+        </tr>
+        <tr>
+          <td><strong>S2</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"24 días al año: el coste administrativo invisible"</strong> — imagen estática tipo A. Dato potente que genera reflexión. <em>Post validado ✓</em></td>
+        </tr>
+        <tr>
+          <td><strong>S2</strong></td>
+          <td>Jue 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"Contratar sin proceso es contratar dos veces"</strong> — el coste real de incorporar personas sin un sistema de onboarding definido. Ángulo: talento como síntoma de sistema roto.</td>
+        </tr>
+        <tr>
+          <td><strong>S2</strong></td>
+          <td>Vie 15–17h</td>
+          <td><span class="canal-d">David</span></td>
+          <td><span class="tipo tipo-evento">Evento</span></td>
+          <td><strong>Evento a definir por David.</strong> Cuando David asista a un evento relevante, activa su agente del Bloque 6 con el prompt de evento: le indica el nombre del evento, qué se habló y qué se llevó. El agente genera el post en su voz en menos de 2 minutos. David revisa, añade foto real del evento y publica. No requiere preparación previa.</td>
+        </tr>
+        <tr>
+          <td><strong>S3</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-trend">Actualidad</span></td>
+          <td><strong>"Implementar IA sin orden genera más desorden"</strong> — la tendencia de IA conectada con la necesidad de procesos claros primero. Ángulo diferencial y propio de FZTT. <em>Post validado ✓</em></td>
+        </tr>
+        <tr>
+          <td><strong>S3</strong></td>
+          <td>Jue 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"El proceso de ventas que escala sin perder calidad"</strong> — cómo pasar de vender por relación personal a tener un proceso replicable. Ángulo operativo, no comercial.</td>
+        </tr>
+        <tr>
+          <td><strong>S4</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-trend">Actualidad</span></td>
+          <td><strong>Post de actualidad (sistema automático) — 1ª entrega mensual.</strong> Tendencia seleccionada del radar semanal. Ángulo: qué significa para el orden operativo de una empresa.</td>
+        </tr>
+        <tr>
+          <td><strong>S4</strong></td>
+          <td>Vie 15–17h</td>
+          <td><span class="canal-d">David</span></td>
+          <td><span class="tipo tipo-ref">Reflexión</span></td>
+          <td><strong>Reflexión libre de David.</strong> Tema definido según contexto real de esa semana. Semana 4: primer punto de revisión de métricas. David puede reflexionar sobre lo aprendido hasta aquí.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Calendar</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 10 — CALENDARIO S5-S8 ════ -->
+<div class="slide">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tr"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">10 · Calendario editorial · Semanas 5–8</div>
+  </div>
+  <div class="content" style="padding-top: 22mm; padding-bottom: 12mm;">
+    <div class="section-label">Calendario editorial</div>
+    <h2 class="content-title" style="font-size: 24pt; margin-bottom: 10px;">Semanas 5–8. Profundidad y escalado del sistema.</h2>
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th style="width: 8%;">Sem.</th>
+          <th style="width: 10%;">Día / Hora</th>
+          <th style="width: 12%;">Canal</th>
+          <th style="width: 16%;">Tipo</th>
+          <th>Contenido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>S5</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"El sistema operativo de una empresa en 5 piezas"</strong> — framework propio de FZTT. Qué compone un sistema operativo sólido: objetivos, procesos, métricas, cadencias, equipo.</td>
+        </tr>
+        <tr>
+          <td><strong>S5</strong></td>
+          <td>Jue 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"Burocracia no es proceso. Proceso es libertad."</strong> — la diferencia entre procedimiento rígido y sistema que libera al equipo. Ángulo anti-intuición: más proceso, más autonomía.</td>
+        </tr>
+        <tr>
+          <td><strong>S5</strong></td>
+          <td>Vie 15–17h</td>
+          <td><span class="canal-d">David</span></td>
+          <td><span class="tipo tipo-ref">Reflexión</span></td>
+          <td><strong>Reflexión personal de David.</strong> Tema a definir según contexto real de esa semana. Formato: texto + foto. David elige el tema que le resulte más genuino en ese momento.</td>
+        </tr>
+        <tr>
+          <td><strong>S6</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"Métricas que toda empresa debería tener (y casi ninguna tiene)"</strong> — qué medir realmente para saber si el negocio escala: margen por cliente, coste de adquisición, velocidad de proceso.</td>
+        </tr>
+        <tr>
+          <td><strong>S6</strong></td>
+          <td>Jue 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-carrusel">Carrusel</span></td>
+          <td><strong>"Por qué fracasan los planes estratégicos"</strong> — 7 slides. La estrategia sin ejecución no existe. Por qué la mayoría de planes mueren en la primera semana de implementación.</td>
+        </tr>
+        <tr>
+          <td><strong>S7</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-trend">Actualidad</span></td>
+          <td><strong>Post de actualidad (sistema automático) — 2ª entrega mensual.</strong> Tendencia del radar conectada con operaciones, eficiencia o escalado. Ángulo diferencial de FZTT.</td>
+        </tr>
+        <tr>
+          <td><strong>S7</strong></td>
+          <td>Jue 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-co">Conocimiento</span></td>
+          <td><strong>"5 señales de que tu empresa ya está escalando de verdad"</strong> — indicadores positivos de escalado: el equipo decide sin preguntar, los procesos se replican solos, el margen crece con el mismo esfuerzo.</td>
+        </tr>
+        <tr>
+          <td><strong>S8</strong></td>
+          <td>Mar 10–13h</td>
+          <td><span class="canal-p">Página</span></td>
+          <td><span class="tipo tipo-carrusel">Carrusel</span></td>
+          <td><strong>"5 decisiones que toman los fundadores que realmente escalan"</strong> — patrones de comportamiento operativo diferencial. Desde la observación directa, sin arquetipos inventados.</td>
+        </tr>
+        <tr>
+          <td><strong>S8</strong></td>
+          <td>Vie 15–17h</td>
+          <td><span class="canal-d">David</span></td>
+          <td><span class="tipo tipo-ref">Reflexión</span></td>
+          <td><strong>Balance de las 6 semanas.</strong> David reflexiona en primera persona sobre qué ha aprendido publicando con consistencia. Meta-contenido que humaniza el proceso y genera conexión auténtica.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Calendar</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 11 — PRÓXIMOS PASOS ════ -->
+<div class="slide">
+  <div class="mesh-bg alt"></div>
+  <div class="grid-bg"></div>
+  <div class="glow bl"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">11 · Próximos pasos</div>
+  </div>
+  <div class="content" style="padding-top: 22mm;">
+    <div class="section-label">Próximos pasos</div>
+    <h2 class="content-title" style="font-size: 26pt; margin-bottom: 10px;">Qué hacemos a continuación.</h2>
+    <div class="cards-grid cols-2" style="gap: 12px; flex: 1;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="card teal-accent" style="padding: 14px 16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--color-navy); color: #fff; font-size: 8pt; font-weight: 800; padding: 3px 9px; border-radius: 20px;">1</span>
+            <h3 style="font-size: 11pt; margin: 0;">Configurar Bloque 5 — sistema de tendencias</h3>
+          </div>
+          <p style="font-size: 9pt;">Primero. El Post 05 del ejemplo ya es fruto de este sistema. Setup en Claude Cowork con tarea programada para viernes. Carpeta dedicada de tendencias. Nunca publicación automática.</p>
+        </div>
+        <div class="card teal-accent" style="padding: 14px 16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--color-navy); color: #fff; font-size: 8pt; font-weight: 800; padding: 3px 9px; border-radius: 20px;">2</span>
+            <h3 style="font-size: 11pt; margin: 0;">Configurar Bloque 6 — sistema de voz David</h3>
+          </div>
+          <p style="font-size: 9pt;">Arquitectura ya definida por David: agente escritor + agente revisor + Notion (borrador IA · versión David). Setup en Cowork + conexión Notion. El historial LinkedIn de David ya está descargado y sirve como calibración inicial. Período de supervisión: ~2 meses al 100%, luego reducción progresiva.</p>
+        </div>
+        <div class="card teal-accent" style="padding: 14px 16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--color-navy); color: #fff; font-size: 8pt; font-weight: 800; padding: 3px 9px; border-radius: 20px;">3</span>
+            <h3 style="font-size: 11pt; margin: 0;">Sesión de fotos para David</h3>
+          </div>
+          <p style="font-size: 9pt;">Banco de imágenes personales reutilizables: primeros planos, entornos de trabajo, momentos reales. Base para el agente de voz y para los posts reflexivos del viernes.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="card teal-accent" style="padding: 14px 16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--color-navy); color: #fff; font-size: 8pt; font-weight: 800; padding: 3px 9px; border-radius: 20px;">4</span>
+            <h3 style="font-size: 11pt; margin: 0;">Validación de posts con David</h3>
+          </div>
+          <p style="font-size: 9pt;">David ya validó Post 01 ("lo de 24 días me ha gustado") y el carrusel de talento. Pendiente: posts 03, 04 (esperan Bloque 6) y validación del conjunto completo. Su feedback cierra el estándar de tono y visual.</p>
+        </div>
+        <div class="card teal-accent" style="padding: 14px 16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="background: var(--color-navy); color: #fff; font-size: 8pt; font-weight: 800; padding: 3px 9px; border-radius: 20px;">5</span>
+            <h3 style="font-size: 11pt; margin: 0;">Producir posts semanas 3–6</h3>
+          </div>
+          <p style="font-size: 9pt;">Con estilo validado y sistemas activos, producir el calendario completo. Página: imágenes tipo A + carruseles PDF. David: borradores del agente de voz + foto.</p>
+        </div>
+        <div class="card dark" style="padding: 14px 16px;">
+          <div class="card-num" style="margin-bottom: 4px; font-size: 9pt;">Principio rector</div>
+          <h3 style="font-size: 11pt; margin-bottom: 6px;">Probar · Medir · Pivotar</h3>
+          <p style="font-size: 9pt; color: var(--color-text-3); line-height: 1.5;">Señales en semana 4. Revisión completa en semana 6. El objetivo es que los dos sistemas (tendencias + voz David) funcionen solos. David supervisa, no produce.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">From Zero <span class="accent">To Execution</span></div>
+  </div>
+</div>
+
+<!-- ════ SLIDE 12 — CTA CIERRE ════ -->
+<div class="slide dark">
+  <div class="mesh-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="glow tl"></div>
+  <div class="glow br"></div>
+  <div class="slide-header">
+    <div class="logo-text"><span class="from">From</span><span class="zero">Zero</span><span class="to">To</span><span class="ten">Ten</span></div>
+    <div class="slide-num">12 · Hablemos</div>
+  </div>
+  <div class="cta-wrap">
+    <div class="cta-eyebrow">· Siguiente paso ·</div>
+    <h2 class="cta-title">¿Listo para<br>ejecutar con sistema?</h2>
+    <p class="cta-sub">
+      La estrategia está. Los posts están. Ahora toca publicar con consistencia, medir con honestidad y ajustar con criterio.
+    </p>
+    <a class="btn-teal" href="https://calendar.app.google/3KKqAF9D6J8W6mn4A" target="_blank" rel="noopener noreferrer">Agenda una llamada</a>
+    <div class="cta-contact">
+      <div class="cta-contact-item">
+        <div class="label">Email</div>
+        <div class="value">hola&#64;fromzerototen.com</div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="label">LinkedIn David</div>
+        <div class="value">linkedin.com/in/david-munoz-lucas</div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="label">Web</div>
+        <div class="value">fromzerototen.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-tag">Partnering with the <span class="accent">companies of the future</span></div>
+  </div>
+</div>
+
+<!-- ── BARRA DE NAVEGACIÓN CRUZADA ── -->
+<div id="fztt-nav" style="
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+">
+  <a href="./index.html" style="
+    display: flex; align-items: center; gap: 8px;
+    background: #0D1B2A; color: #fff; text-decoration: none;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 12px; font-weight: 700;
+    padding: 10px 16px; border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  " onmouseover="this.style.background='#00876F';this.style.transform='scale(1.04)'"
+     onmouseout="this.style.background='#0D1B2A';this.style.transform='scale(1)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C6A7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+    Ver Guía de Posts
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00C6A7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<script>
+/* ── RESPONSIVE SCALING para slides de formato fijo ── */
+function scaleSlides() {
+  var slides = document.querySelectorAll('.slide');
+  if (!slides.length) return;
+  var slideNatural = slides[0].offsetWidth;
+  if (slideNatural === 0) return;
+  var vw = window.innerWidth;
+  var padding = 32;
+  if (vw < slideNatural + padding) {
+    var scale = (vw - padding) / slideNatural;
+    slides.forEach(function(s) {
+      var h = s.offsetHeight;
+      s.style.transformOrigin = 'top center';
+      s.style.transform = 'scale(' + scale + ')';
+      s.style.marginTop = '16px';
+      s.style.marginBottom = (-(h * (1 - scale)) + 16) + 'px';
+    });
+  } else {
+    slides.forEach(function(s) {
+      s.style.transform = '';
+      s.style.marginTop = '';
+      s.style.marginBottom = '';
+    });
+  }
+}
+window.addEventListener('resize', scaleSlides);
+window.addEventListener('load', scaleSlides);
+document.addEventListener('DOMContentLoaded', scaleSlides);
+</script>
+
+</body>
+</html>
